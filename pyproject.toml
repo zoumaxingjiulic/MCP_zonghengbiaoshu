@@ -18,6 +18,7 @@ dependencies = [
 
 [project.scripts]
 zongheng-mcp = "zongheng_mcp.server:main"
+zongheng-mcp-smoke = "zongheng_mcp.smoke:main"
 
 [dependency-groups]
 dev = [
