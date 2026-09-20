@@ -25,6 +25,7 @@ ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONDONTWRITEBYTECODE=1
 
 USER 10001:10001
+RUN python -c "from zongheng_mcp.server import main"
 EXPOSE 8000
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
@@ -32,4 +33,3 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
 
 ENTRYPOINT ["zongheng-mcp"]
 CMD ["--transport", "streamable-http", "--host", "0.0.0.0", "--port", "8000"]
-

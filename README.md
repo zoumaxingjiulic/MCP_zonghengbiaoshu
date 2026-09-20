@@ -92,7 +92,7 @@ curl http://127.0.0.1:18002/healthz
 ## Docker Compose 部署
 
 ```bash
-docker compose --env-file .env up -d --build
+docker compose --env-file .env up -d --build --wait --wait-timeout 120
 docker compose --env-file .env ps
 curl http://127.0.0.1:18002/healthz
 ```
@@ -106,7 +106,7 @@ docker compose --env-file .env logs -f --tail=200 zongheng-mcp
 更新代码后的重建：
 
 ```bash
-docker compose --env-file .env up -d --build --force-recreate
+docker compose --env-file .env up -d --build --force-recreate --wait --wait-timeout 120
 ```
 
 容器采用只读根文件系统、丢弃 Linux capabilities、禁止权限提升，并限制日志文件大小。生产环境仍应通过防火墙或反向代理限制访问来源；跨网络访问建议在反向代理处配置 HTTPS。
