@@ -1,6 +1,14 @@
 from types import SimpleNamespace
 
-from zongheng_mcp.smoke import summarize_result
+import pytest
+
+from zongheng_mcp.smoke import smoke_calls, summarize_result
+from zongheng_mcp.tools.qualifications import SPEC_BY_NAME
+
+
+@pytest.mark.parametrize("name,arguments", smoke_calls())
+def test_smoke_call_arguments_match_tool_contract(name, arguments):
+    SPEC_BY_NAME[name].input_model.model_validate(arguments)
 
 
 def test_smoke_summary_never_contains_business_items():

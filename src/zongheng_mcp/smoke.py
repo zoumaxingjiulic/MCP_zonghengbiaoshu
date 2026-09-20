@@ -45,7 +45,7 @@ def smoke_calls() -> list[tuple[str, dict[str, Any]]]:
         ("zongheng_get_qualification_overview", {}),
         (
             "zongheng_get_expiry_month_statistics",
-            {"year": year, "source": "internal"},
+            {"start_month": f"{year}-01", "end_month": f"{year}-12", "source": "internal"},
         ),
     ]
 
