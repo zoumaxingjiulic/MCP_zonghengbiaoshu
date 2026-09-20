@@ -21,6 +21,7 @@ zongheng-mcp = "zongheng_mcp.server:main"
 
 [dependency-groups]
 dev = [
+  "httpx2==2.12.0",
   "pytest==9.1.1",
   "pytest-asyncio==1.4.0",
   "ruff==0.16.6",
@@ -36,4 +37,3 @@ asyncio_mode = "auto"
 [tool.ruff]
 line-length = 110
 target-version = "py312"
-

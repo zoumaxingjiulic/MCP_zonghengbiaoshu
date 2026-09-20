@@ -1,0 +1,40 @@
+services:
+  zongheng-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zongheng-qualification-mcp:0.1.0
+    restart: unless-stopped
+    init: true
+    ports:
+      - "${MCP_BIND_IP:-127.0.0.1}:${MCP_PORT:-18002}:8000"
+    environment:
+      ZONGHENG_DB_HOST: "${ZONGHENG_DB_HOST:?ZONGHENG_DB_HOST is required}"
+      ZONGHENG_DB_PORT: "${ZONGHENG_DB_PORT:-3306}"
+      ZONGHENG_DB_USER: "${ZONGHENG_DB_USER:?ZONGHENG_DB_USER is required}"
+      ZONGHENG_DB_PASSWORD: "${ZONGHENG_DB_PASSWORD:?ZONGHENG_DB_PASSWORD is required}"
+      ZONGHENG_DB_NAME: "${ZONGHENG_DB_NAME:?ZONGHENG_DB_NAME is required}"
+      ZONGHENG_DB_CONNECT_TIMEOUT: "${ZONGHENG_DB_CONNECT_TIMEOUT:-10}"
+      ZONGHENG_DB_READ_TIMEOUT: "${ZONGHENG_DB_READ_TIMEOUT:-30}"
+      ZONGHENG_DB_POOL_SIZE: "${ZONGHENG_DB_POOL_SIZE:-5}"
+      ZONGHENG_DB_MAX_OVERFLOW: "${ZONGHENG_DB_MAX_OVERFLOW:-10}"
+      MCP_ACCESS_TOKEN: "${MCP_ACCESS_TOKEN:?MCP_ACCESS_TOKEN is required}"
+      MCP_ALLOWED_HOSTS: "${MCP_ALLOWED_HOSTS:?MCP_ALLOWED_HOSTS is required}"
+      MCP_ALLOWED_ORIGINS: "${MCP_ALLOWED_ORIGINS:-}"
+      MCP_MAX_REQUEST_BODY_SIZE: "${MCP_MAX_REQUEST_BODY_SIZE:-1048576}"
+      MCP_MAX_SESSIONS: "${MCP_MAX_SESSIONS:-64}"
+      MCP_SESSION_IDLE_TIMEOUT: "${MCP_SESSION_IDLE_TIMEOUT:-300}"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
