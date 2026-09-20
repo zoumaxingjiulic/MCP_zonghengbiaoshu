@@ -62,4 +62,3 @@ def test_live_all_six_repository_capabilities_execute_read_only(live_repository)
         MonthlyStatsQuery(source="internal", start_month="2026-01", end_month="2026-12")
     )
     assert isinstance(monthly, list)
-
